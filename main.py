@@ -6,6 +6,8 @@ import seaborn as sns
 import openpyxl
 from sklearn.model_selection import train_test_split
 
+# Todo: have to implement generic version so that users can input feature and have prediction
+
 class Naive_Bayes:
     def __init__(this):
         this.classes = None
