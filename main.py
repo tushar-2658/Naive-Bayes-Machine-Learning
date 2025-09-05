@@ -126,16 +126,22 @@ def main():
     print("\n predicting for the given input vector: ")
     X_input = np.array([[13.0, 15.0, 85.0, 500.0, 0.1, 0.15, 0.1, 0.05, 0.2, 0.08, 0.5, 1.5, 4.0, 70.0, 0.01, 0.02,
                         0.02, 0.01, 0.015, 0.002, 14.0, 20.0, 90.0, 600.0, 0.2, 0.25, 0.2, 0.1, 0.3, 0.1]])
-    yes = input("would you like to input class manually? Y/N: ")
+    yes = input("would you like to input class manually? (By choosing N, it will give the result for provided test in the assignment) Y/N : ")
     if yes == 'Y':
-        X_input = np.array([user_input()])
-    prediction = nb_classifier.predict(X_input) # gives class that the sample is most likely in
-    prediction_prob = nb_classifier.predict_prob(X_input) # gives probability of the sample to be in the output class
-
+        val = int(input("Enter the number of datasets you want to test: "))
+        for i in range(val):
+            X_input = np.array([user_input()])
+            prediction = nb_classifier.predict(X_input) # gives class that the sample is most likely in
+            prediction_prob = nb_classifier.predict_prob(X_input) # gives probability of the sample to be in the output class
+            print(f"Prediction for given X vector: {'Benign' if prediction == 1 else 'Malignant'}  and the probabilities underlying are {prediction_prob[0][0]} for Benign and {prediction_prob[0][1]} for Malignant")
+    else :
+        prediction = nb_classifier.predict(X_input) # gives class that the sample is most likely in
+        prediction_prob = nb_classifier.predict_prob(X_input) # gives probability of the sample to be in the output class
+        print(f"Prediction for given X vector: {'Benign' if prediction == 1 else 'Malignant'}  and the probabilities underlying are {prediction_prob[0][0]} for Benign and {prediction_prob[0][1]} for Malignant")
     return nb_classifier, accuracy, prediction, prediction_prob
 
 if __name__  == "__main__":
     classifier, accuracy, prediction, prediction_prob = main()
     print("Summary Results")
     print(f"Final accuracy: {accuracy:.4f} ({accuracy * 100:.2f}%)") # prints accuracy to 2 decimal place
-    print(f"Prediction for given X vector: {'Benign' if prediction == 1 else 'Malignant'}  and the probabilities underlying are {prediction_prob[0][0]} for Benign and {prediction_prob[0][1]} for Malignant")
+  #  print(f"Prediction for given X vector: {'Benign' if prediction == 1 else 'Malignant'}  and the probabilities underlying are {prediction_prob[0][0]} for Benign and {prediction_prob[0][1]} for Malignant")
