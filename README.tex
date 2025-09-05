@@ -1,76 +1,85 @@
-\documentclass{article}
-\usepackage{graphicx} % Required for inserting images
-\usepackage[a4paper, margin=1in]{geometry}
-\usepackage{amsmath}
-
-\title{Naive Bayes Design and Implementation Report}
-\author{Al Amin Tushar}
-\date{4th September 2025}
-
-\begin{document}
-
-\maketitle
-
-\section{Introduction}
-This report presents the design and implementation of a Naive Bayes Classification for given datasets in \textit{Data.xlsx} file. The implementation demonstrates a complete machine learning pipeline built from scratch using only fundamental Python libraries (NumPy, Pandas). The classifier successfully applies Gaussian Naive Bayes principles to classify data into either malignant (0) or benign (1) based on 30 numerical features.
-
-\section{System Architecture Overview}
-\subsection {Core Components}
+1 Introduction
+This report presents the design and implementation of a Naive Bayes Classification for given datasets
+in Data.xlsx file. The implementation demonstrates a complete machine learning pipeline built from
+scratch using only fundamental Python libraries (NumPy, Pandas). The classifier successfully applies
+Gaussian Naive Bayes principles to classify data into either malignant (0) or benign (1) based on 30
+numerical features.
+2 System Architecture Overview
+2.1 Core Components
 The implementation consists of five main components:
-\begin {enumerate}
-    \item Naive Bayes Class: Core classifier function
-    \item Data Management Functions: Loading and preprocessing
-    \item Evaluation Frameworks: Performance assessment tools
-    \item Interactive Interface: User input handling
-    \item Main Pipeline: Orchestrates the complete workflow
-\end {enumerate}
-
-\subsection {Design Philosophy}
-The code follows a minimalist approach, implementing only essential functions while maintaining clarity. Key Design principles include:
-
-\begin{itemize}
-    \item Simplicity: Straightforward implementation without complex optimizations
-    \item Transparency: All algorithmic steps are explicitly coded
-    \item Modularity: Clear separation of concerns between components
-    \item Interactivity: User-friendly interface for testing custom inputs
-\end{itemize}
-
-\section{Detailed Algorithm Analysis}
-\subsection {Core Algorithm Components}
-The \textbf{fit()} method identifies unique classes in the training data, computes \textbf{P(Class)} for each class based on frequency; for each class and feature, calculates sample mean ($\mu$), standard deviation ($\sigma$). It also adds epsilon $10^{-9}$ to prevent division by zero.
-
-\subsection {Mathematical Representation}
-    \textbf{Prior:}
-        \[
-            P(C_k) = \frac{|C_k|}{N}
-        \]
-        \noindent where $|C_k|$ is the number of samples in class $k$, and $N$ is the total number of samples.
-   \paragraph{} \textbf{Mean:}
-    \[
-        \mu_{kj} = \frac{1}{|C_k|} \sum_{i \in C_k} x_{ij}
-    \]
-    \paragraph{} \textbf{Std Dev:}
-    \[
-        \sigma_{kj} = \sqrt{ \frac{1}{|C_k|} \sum_{i \in C_k} \left( x_{ij} - \mu_{kj} \right)^2 }
-    \]
-    \paragraph{} \textbf{Gaussian Probability Function: }
-    \[
-        f(x) = \frac{1}{\sigma \sqrt{2\pi}} \exp\left( -\frac{1}{2} \left( \frac{x - \mu}{\sigma} \right)^2 \right)
-    \]
-\subsection {Process Breakdown}
-    The program uses logarithms to prevent numerical underflow, starts with log(P(class)), adds \[\log\left( P(\text{Feature} \mid \text{Class}) \right)\] for each feature, multiplies probabilities by adding logarithms and converts back probability space and normalizes.
-
-\section {Data Management Implementation}
-\subsection {Data Loading}
-The \textbf{load and prep data} function expects excel file with 31 columns (30 features and 1 label), features first 30 columns, class labels as last column, automatically handles any number of samples.
-\subsection {Data Splitting}
-The \textbf{data split} function defaults to 75\% training, 25\% testing, the splitting is controlled by fixed seed for reproducibility, however, the randomization can be changed if one changes the seed of their choice. The program assumes there is exactly 569 samples (based on data.xlsx) but it can be changed to dymanic input from user.
-
-\section {User Interface and Interaction}
-The program allows users to enter all 30 feature values, supports for multiple test data in console, it defaults to the given input the assignment to when no input is detected or user chooses not to input manually and gives prediction. The output characteristics include conversion to numeric predictions, and easy to interpret results.
-
-\section {Conclusion}
-This Naive Bayes implementation successfully demonstrates the core principles of probabilistic classification in a clear, educational manner, principles of probabilistic classification in a clear manner. The code effectively apples Gaussian Naive Bayes to cancer classification, achieving the fundamental objective of the assignment.
-
-
-\end{document}
+1. Naive Bayes Class: Core classifier function
+2. Data Management Functions: Loading and preprocessing
+3. Evaluation Frameworks: Performance assessment tools
+4. Interactive Interface: User input handling
+5. Main Pipeline: Orchestrates the complete workflow
+2.2 Design Philosophy
+The code follows a minimalist approach, implementing only essential functions while maintaining clarity.
+Key Design principles include:
+• Simplicity: Straightforward implementation without complex optimizations
+• Transparency: All algorithmic steps are explicitly coded
+• Modularity: Clear separation of concerns between components
+• Interactivity: User-friendly interface for testing custom inputs
+3 Detailed Algorithm Analysis
+3.1 Core Algorithm Components
+The fit() method identifies unique classes in the training data, computes P(Class) for each class based
+on frequency; for each class and feature, calculates sample mean (µ), standard deviation (σ). It also
+adds epsilon 10−9
+to prevent division by zero.
+3.2 Mathematical Representation
+Prior:
+P(Ck) = |Ck|
+N
+where |Ck| is the number of samples in class k, and N is the total number of samples.
+1
+Mean:
+µkj =
+1
+|Ck|
+X
+i∈Ck
+xij
+Std Dev:
+σkj =
+s
+1
+|Ck|
+X
+i∈Ck
+(xij − µkj )
+2
+Gaussian Probability Function:
+f(x) = 1
+σ
+√
+2π
+exp
+−
+1
+2
+
+x − µ
+σ
+2
+!
+3.3 Process Breakdown
+The program uses logarithms to prevent numerical underflow, starts with log(P(class)), adds
+log (P(Feature | Class))
+for each feature, multiplies probabilities by adding logarithms and converts back probability space and
+normalizes.
+4 Data Management Implementation
+4.1 Data Loading
+The load and prep data function expects excel file with 31 columns (30 features and 1 label), features
+first 30 columns, class labels as last column, automatically handles any number of samples.
+4.2 Data Splitting
+The data split function defaults to 75% training, 25% testing, the splitting is controlled by fixed seed
+for reproducibility, however, the randomization can be changed if one changes the seed of their choice.
+The program assumes there is exactly 569 samples (based on data.xlsx) but it can be changed to dymanic
+input from user.
+5 User Interface and Interaction
+The program allows users to enter all 30 feature values, supports for multiple test data in console, it
+defaults to the given input the assignment to when no input is detected or user chooses not to input
+manually and gives prediction. The output characteristics include conversion to numeric predictions,
+and easy to interpret results.
+6 Conclusion
+This Naive Bayes implementation successfully demonstrates the core principles of probabilistic classification in a clear, educational manner, principles of probabilistic classification in a clear manner. The code
+effectively apples G
